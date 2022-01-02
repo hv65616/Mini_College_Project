@@ -1,17 +1,21 @@
 from PIL import Image
 import img2pdf
 import os
+import glob
 
-image_path = "images/image_2.jpg"
-pdf_path = "pdf/image_2.pdf"
+images_path = glob.glob("images/*.*")
 
-image = Image.open(image_path)
+for image_path in images_path:
+    # image_path = "images/image_2.jpg"
+    pdf_path = "pdf/image_2.pdf"
 
-pdf_bytes = img2pdf.convert(image.filename)
+    image = Image.open(image_path)
 
-file = open(pdf_path, "wb")
+    pdf_bytes = img2pdf.convert(image.filename)
 
-file.write(pdf_bytes)
+    file = open(pdf_path, "wb")
+
+    file.write(pdf_bytes)
 
 image.close()
 
