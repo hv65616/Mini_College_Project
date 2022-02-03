@@ -1,22 +1,20 @@
+# Importing the necessary modules
+from fpdf import FPDF
 from PIL import Image
 import img2pdf
 import os
 import glob
 
-images_path = glob.glob("images/*.*")
+# Including the FPDF() function which is responsible to generate the pdf
+pdf = FPDF()
 
-for image_path in images_path:
-    # image_path = "images/image_2.jpg"
-    pdf_path = "pdf/image_2.pdf"
+# imagelist is the list with all image filenames
+imagelist = glob.glob("images_watermarked/*.*")
 
-    image = Image.open(image_path)
+# This loop is responsible for taking images and convert them into pdf
+for image in imagelist:
+    pdf.add_page()
+    pdf.image(image, 0, 0, 210, 297)
 
-    pdf_bytes = img2pdf.convert(image.filename)
-
-    file = open(pdf_path, "wb")
-
-    file.write(pdf_bytes)
-
-image.close()
-
-file.close()
+# And at last all the images that are converted into pdf will be stored inside one single pdf file.
+pdf.output("pdf/yourfile.pdf", "F")
